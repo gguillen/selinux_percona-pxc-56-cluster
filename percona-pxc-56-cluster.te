@@ -1,0 +1,75 @@
+module percona-xtradb-cluster 1.0;
+
+require {
+	type unconfined_t;
+	type rpcbind_t;
+	type init_t;
+	type auditd_t;
+	type ifconfig_exec_t;
+	type syslogd_t;
+	type tmp_t;
+	type dhcpc_t;
+	type proc_net_t;
+	type ntpd_t;
+	type kernel_t;
+	type sysctl_net_t;
+	type rsync_exec_t;
+	type mysqld_t;
+	type udev_t;
+	type mysqld_safe_t;
+	type sshd_t;
+	type getty_t;
+	type anon_inodefs_t;
+	type fcoemon_t;
+	type rpcd_t;
+	type lldpad_t;
+	class process { getattr signull };
+	class file { execute setattr read create ioctl execute_no_trans write getattr unlink open append };
+	class dir { write getattr remove_name search add_name };
+	class unix_stream_socket connectto;
+}
+
+#============= mysqld_safe_t ==============
+allow mysqld_safe_t mysqld_t:process signull;
+allow mysqld_safe_t tmp_t:dir { write remove_name add_name };
+allow mysqld_safe_t tmp_t:file { setattr read create getattr write ioctl unlink open };
+
+#============= mysqld_t ==============
+allow mysqld_t anon_inodefs_t:file write;
+allow mysqld_t auditd_t:dir { getattr search };
+allow mysqld_t auditd_t:file { read open };
+allow mysqld_t dhcpc_t:dir { getattr search };
+allow mysqld_t dhcpc_t:file { read open };
+allow mysqld_t fcoemon_t:dir { getattr search };
+allow mysqld_t fcoemon_t:file { read open };
+allow mysqld_t getty_t:dir { getattr search };
+allow mysqld_t getty_t:file { read open };
+allow mysqld_t ifconfig_exec_t:file { read getattr open execute execute_no_trans };
+allow mysqld_t init_t:dir { getattr search };
+allow mysqld_t init_t:file { read open };
+allow mysqld_t kernel_t:dir { getattr search };
+allow mysqld_t kernel_t:file { read open };
+allow mysqld_t lldpad_t:dir { getattr search };
+allow mysqld_t lldpad_t:file { read open };
+allow mysqld_t mysqld_safe_t:dir { getattr search };
+allow mysqld_t mysqld_safe_t:file { read open };
+allow mysqld_t ntpd_t:dir { getattr search };
+allow mysqld_t ntpd_t:file { read open };
+allow mysqld_t proc_net_t:file { read getattr open };
+allow mysqld_t rpcbind_t:dir { getattr search };
+allow mysqld_t rpcbind_t:file { read open };
+allow mysqld_t rpcd_t:dir { getattr search };
+allow mysqld_t rpcd_t:file { read open };
+allow mysqld_t rsync_exec_t:file { read execute open getattr execute_no_trans };
+allow mysqld_t self:process getattr;
+allow mysqld_t sshd_t:dir { getattr search };
+allow mysqld_t sshd_t:file { read open };
+allow mysqld_t sysctl_net_t:dir search;
+allow mysqld_t syslogd_t:dir { getattr search };
+allow mysqld_t syslogd_t:file { read open };
+allow mysqld_t tmp_t:file { getattr open append };
+allow mysqld_t udev_t:dir { getattr search };
+allow mysqld_t udev_t:file { read open };
+allow mysqld_t unconfined_t:dir { getattr search };
+allow mysqld_t unconfined_t:file { read open };
+allow mysqld_t self:unix_stream_socket connectto;
