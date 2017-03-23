@@ -1,4 +1,4 @@
-module percona-xtradb-cluster 1.0;
+module percona-xtradb-cluster 1.1;
 
 require {
 	type unconfined_t;
