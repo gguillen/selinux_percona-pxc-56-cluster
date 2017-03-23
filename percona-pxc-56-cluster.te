@@ -23,7 +23,7 @@ require {
 	type fcoemon_t;
 	type rpcd_t;
 	type lldpad_t;
-	class process { getattr signull };
+	class process { getattr signull setpgid };
 	class file { execute setattr read create ioctl execute_no_trans write getattr unlink open append };
 	class dir { write getattr remove_name search add_name };
 	class unix_stream_socket connectto;
@@ -61,7 +61,7 @@ allow mysqld_t rpcbind_t:file { read open };
 allow mysqld_t rpcd_t:dir { getattr search };
 allow mysqld_t rpcd_t:file { read open };
 allow mysqld_t rsync_exec_t:file { read execute open getattr execute_no_trans };
-allow mysqld_t self:process getattr;
+allow mysqld_t self:process { getattr setpgid };
 allow mysqld_t sshd_t:dir { getattr search };
 allow mysqld_t sshd_t:file { read open };
 allow mysqld_t sysctl_net_t:dir search;
