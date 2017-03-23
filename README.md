@@ -1,4 +1,4 @@
-#SELinux rules for Percona XtraDB Cluster 5.6
+# SELinux rules for Percona XtraDB Cluster 5.6
 **Because turning SELinux off isn't always an option**
 
 This module is known to work with rsync and xtrabackup-v2 SST methods.  Other SST methods may not function correctly with this policy module.
